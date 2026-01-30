@@ -4,161 +4,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MM Mobiles | Your Phone, Your Canvas</title>
+    <title>MM Mobiles | Infinite Customization</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;500;800&display=swap"
+        rel="stylesheet">
+
     <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0a0a;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #030303;
+            color: white;
             overflow-x: hidden;
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .font-sync {
+            font-family: 'Syncopate', sans-serif;
         }
 
-        .glow {
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+        /* Advanced Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
+            z-index: -1;
         }
 
-        .floating-phone {
-            transform-style: preserve-3d;
-            perspective: 1000px;
+        /* The "Alluring" CTA Animation */
+        .cta-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .cta-glow::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--primary), var(--secondary), transparent 30%);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Glassmorphism Phone Case */
+        .phone-case {
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.5);
+            transition: transform 0.1s ease-out;
         }
     </style>
 </head>
 
-<body class="text-white">
+<body class="antialiased">
+    <div class="mesh-bg"></div>
 
-    <nav class="flex justify-between items-center p-8 absolute w-full z-50">
-        <div class="text-2xl font-black tracking-tighter italic">MM <span class="text-violet-500">MOBILES</span></div>
-        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest opacity-70">
-            <a href="#" class="hover:text-violet-400 transition">Collection</a>
-            <a href="#" class="hover:text-violet-400 transition">Design Tool</a>
-            <a href="#" class="hover:text-violet-400 transition">Reviews</a>
-        </div>
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center mix-blend-difference">
+        <div class="font-sync text-lg md:text-2xl font-bold tracking-tighter">MM <span
+                class="text-violet-500">MOBILES</span></div>
+        <div class="h-[1px] w-12 md:w-24 bg-white/20"></div>
     </nav>
 
-    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-violet-600/20 rounded-full blur-[120px] animate-pulse">
-        </div>
-        <div
-            class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse">
-        </div>
+            <div class="flex justify-center items-center relative order-1 lg:order-2 py-10 lg:py-0">
+                <div class="absolute w-64 h-64 md:w-96 md:h-96 bg-violet-600/20 rounded-full blur-[80px]"></div>
 
-        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
-
-            <div class="hero-text">
-                <h1 class="text-6xl md:text-8xl font-black leading-none mb-6">
-                    DRESS <br> <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">YOUR
-                        TECH.</span>
-                </h1>
-                <p class="text-lg text-gray-400 max-w-md mb-10 leading-relaxed">
-                    Premium custom cases crafted for your personality. Ultra-slim protection meets "mindblowing"
-                    artistic expression.
-                </p>
-
-                <button id="cta-button"
-                    class="group relative px-10 py-5 bg-white text-black font-bold rounded-full transition-transform hover:scale-105 overflow-hidden">
-                    <span class="relative z-10">ORDER YOUR CUSTOM CASE</span>
-                    <div
-                        class="absolute inset-0 bg-gradient-to-r from-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                </button>
-            </div>
-
-            <div class="flex justify-center items-center">
-                <div id="phone-container" class="floating-phone relative w-64 h-[500px] md:w-80 md:h-[600px]">
-                    <div
-                        class="glass w-full h-full rounded-[3rem] p-4 shadow-2xl overflow-hidden flex flex-col items-center justify-center border-2 border-white/20">
-                        <div class="w-20 h-2 bg-white/10 rounded-full mb-10"></div>
-                        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=600"
-                            alt="Custom Case Design" class="w-[85%] h-[70%] object-cover rounded-2xl shadow-xl">
-                        <p class="mt-6 text-xs tracking-widest text-white/40 italic font-bold">MM DESIGN SERIES 01</p>
+                <div id="phone-ui"
+                    class="phone-case relative w-56 md:w-72 lg:w-80 aspect-[9/19] bg-[#111] rounded-[3rem] p-3 border border-white/10">
+                    <div class="w-full h-full rounded-[2.5rem] overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&q=80&w=800"
+                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700"
+                            alt="Case Preview">
+                        <div class="absolute bottom-6 left-0 w-full text-center">
+                            <span
+                                class="bg-black/50 backdrop-blur-md px-4 py-1 rounded-full text-[10px] tracking-widest uppercase border border-white/10">Limited
+                                Edition</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="text-center lg:text-left order-2 lg:order-1 space-y-6">
+                <h2 class="text-xs md:text-sm font-sync tracking-[0.5em] text-violet-400 uppercase">Est. 2026</h2>
+                <h1 class="text-5xl sm:text-7xl xl:text-8xl font-black leading-[0.85] tracking-tighter">
+                    WEAR YOUR <br> <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-500">STORY.</span>
+                </h1>
+                <p class="text-gray-400 text-sm md:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed font-light">
+                    Every pixel tells a tale. High-definition custom printing on aerospace-grade polymer. Designed by
+                    you, protected by MM.
+                </p>
+
+                <div class="pt-6">
+                    <button id="main-cta" class="cta-glow p-[2px] rounded-2xl inline-block group">
+                        <div
+                            class="bg-black px-8 py-5 rounded-[14px] flex items-center space-x-4 group-hover:bg-transparent transition-colors duration-300">
+                            <span class="text-sm md:text-base font-bold tracking-widest uppercase">Start Creating</span>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 transform group-hover:translate-x-2 transition-transform" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
     </section>
 
-    <div class="absolute bottom-10 w-full flex justify-around opacity-30 text-xs tracking-tighter uppercase font-bold">
-        <span>Impact Resistant</span>
-        <span>Eco-Friendly Materials</span>
-        <span>Global Shipping</span>
-    </div>
+    <footer class="w-full py-10 px-6 opacity-40">
+        <div
+            class="max-w-7xl mx-auto flex flex-wrap justify-center md:justify-between gap-6 text-[10px] md:text-xs font-sync tracking-widest uppercase text-center">
+            <p>Carbon Neutral Delivery</p>
+            <p>Shatter-Proof Guarantee</p>
+            <p>Infinite Designs</p>
+        </div>
+    </footer>
 
     <script>
-        // Entrance Animations
-        gsap.from(".hero-text > *", {
-            y: 50,
-            opacity: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "power4.out"
+        // Smooth Entrance
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+        tl.from(".font-sync", { y: -20, opacity: 0, duration: 1 })
+            .from("h1", { y: 100, opacity: 0, duration: 1.2 }, "-=0.8")
+            .from("p", { y: 30, opacity: 0, duration: 1 }, "-=1")
+            .from("#main-cta", { scale: 0.5, opacity: 0, duration: 0.8 }, "-=0.8")
+            .from("#phone-ui", { x: 50, rotation: 10, opacity: 0, duration: 1.5 }, "-=1.2");
+
+        // Subtle Floating Loop
+        gsap.to("#phone-ui", {
+            y: 20,
+            rotation: 2,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
         });
 
-        gsap.from("#phone-container", {
-            x: 100,
-            opacity: 0,
-            duration: 1.5,
-            delay: 0.5,
-            ease: "expo.out"
-        });
-
-        // 3D Mouse Parallax for Phone
-        const container = document.querySelector('body');
-        const phone = document.getElementById('phone-container');
-
-        container.addEventListener('mousemove', (e) => {
-            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            gsap.to(phone, {
-                rotationY: xAxis,
-                rotationX: -yAxis,
-                duration: 0.5,
-                ease: "power2.out"
+        // Responsive Tilt Effect (Desktop Only)
+        const phone = document.querySelector('#phone-ui');
+        if (window.innerWidth > 1024) {
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.pageX) / 30;
+                const y = (window.innerHeight / 2 - e.pageY) / 30;
+                gsap.to(phone, {
+                    rotationY: x,
+                    rotationX: -y,
+                    transformPerspective: 1000,
+                    duration: 0.5
+                });
             });
+        }
+
+        // Magnetic CTA logic
+        const cta = document.querySelector('#main-cta');
+        cta.addEventListener('mousemove', (e) => {
+            const { offsetX: x, offsetY: y } = e,
+                { offsetWidth: width, offsetHeight: height } = cta,
+                move = 15,
+                xMove = x / width * (move * 2) - move,
+                yMove = y / height * (move * 2) - move;
+
+            gsap.to(cta, { x: xMove, y: yMove, duration: 0.3 });
         });
 
-        // Reset phone position when mouse leaves
-        container.addEventListener('mouseleave', () => {
-            gsap.to(phone, {
-                rotationY: 0,
-                rotationX: 0,
-                duration: 1,
-                ease: "elastic.out(1, 0.3)"
-            });
-        });
-
-        // Magnetic CTA Effect
-        const btn = document.getElementById('cta-button');
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(btn, {
-                x: x * 0.3,
-                y: y * 0.3,
-                duration: 0.3,
-                ease: "power2.out"
-            });
-        });
-
-        btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, {
-                x: 0,
-                y: 0,
-                duration: 0.5,
-                ease: "elastic.out(1, 0.3)"
-            });
+        cta.addEventListener('mouseleave', () => {
+            gsap.to(cta, { x: 0, y: 0, duration: 0.5 });
         });
     </script>
 </body>

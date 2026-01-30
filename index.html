@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM Mobiles | Your Phone, Your Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glow {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .floating-phone {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+    </style>
+</head>
+
+<body class="text-white">
+
+    <nav class="flex justify-between items-center p-8 absolute w-full z-50">
+        <div class="text-2xl font-black tracking-tighter italic">MM <span class="text-violet-500">MOBILES</span></div>
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest opacity-70">
+            <a href="#" class="hover:text-violet-400 transition">Collection</a>
+            <a href="#" class="hover:text-violet-400 transition">Design Tool</a>
+            <a href="#" class="hover:text-violet-400 transition">Reviews</a>
+        </div>
+    </nav>
+
+    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-violet-600/20 rounded-full blur-[120px] animate-pulse">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] animate-pulse">
+        </div>
+
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+
+            <div class="hero-text">
+                <h1 class="text-6xl md:text-8xl font-black leading-none mb-6">
+                    DRESS <br> <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">YOUR
+                        TECH.</span>
+                </h1>
+                <p class="text-lg text-gray-400 max-w-md mb-10 leading-relaxed">
+                    Premium custom cases crafted for your personality. Ultra-slim protection meets "mindblowing"
+                    artistic expression.
+                </p>
+
+                <button id="cta-button"
+                    class="group relative px-10 py-5 bg-white text-black font-bold rounded-full transition-transform hover:scale-105 overflow-hidden">
+                    <span class="relative z-10">ORDER YOUR CUSTOM CASE</span>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-violet-400 to-fuchsia-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                </button>
+            </div>
+
+            <div class="flex justify-center items-center">
+                <div id="phone-container" class="floating-phone relative w-64 h-[500px] md:w-80 md:h-[600px]">
+                    <div
+                        class="glass w-full h-full rounded-[3rem] p-4 shadow-2xl overflow-hidden flex flex-col items-center justify-center border-2 border-white/20">
+                        <div class="w-20 h-2 bg-white/10 rounded-full mb-10"></div>
+                        <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&q=80&w=600"
+                            alt="Custom Case Design" class="w-[85%] h-[70%] object-cover rounded-2xl shadow-xl">
+                        <p class="mt-6 text-xs tracking-widest text-white/40 italic font-bold">MM DESIGN SERIES 01</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="absolute bottom-10 w-full flex justify-around opacity-30 text-xs tracking-tighter uppercase font-bold">
+        <span>Impact Resistant</span>
+        <span>Eco-Friendly Materials</span>
+        <span>Global Shipping</span>
+    </div>
+
+    <script>
+        // Entrance Animations
+        gsap.from(".hero-text > *", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out"
+        });
+
+        gsap.from("#phone-container", {
+            x: 100,
+            opacity: 0,
+            duration: 1.5,
+            delay: 0.5,
+            ease: "expo.out"
+        });
+
+        // 3D Mouse Parallax for Phone
+        const container = document.querySelector('body');
+        const phone = document.getElementById('phone-container');
+
+        container.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            gsap.to(phone, {
+                rotationY: xAxis,
+                rotationX: -yAxis,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+
+        // Reset phone position when mouse leaves
+        container.addEventListener('mouseleave', () => {
+            gsap.to(phone, {
+                rotationY: 0,
+                rotationX: 0,
+                duration: 1,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+
+        // Magnetic CTA Effect
+        const btn = document.getElementById('cta-button');
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            gsap.to(btn, {
+                x: x * 0.3,
+                y: y * 0.3,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                x: 0,
+                y: 0,
+                duration: 0.5,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    </script>
+</body>
+
+</html>

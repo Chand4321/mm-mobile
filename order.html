@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MM Mobiles | Order Details</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;500;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #030303;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .font-sync {
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        /* Mesh BG */
+        .mesh-bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15), transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15), transparent 50%);
+            z-index: -1;
+        }
+
+        /* Glass Card */
+        .glass {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        input,
+        textarea,
+        select {
+            background: transparent;
+            outline: none;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #777;
+        }
+
+        /* CTA Glow */
+        .cta-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-glow::before {
+            content: '';
+            position: absolute;
+            inset: -100%;
+            background: conic-gradient(from 0deg,
+                    transparent,
+                    var(--primary),
+                    var(--secondary),
+                    transparent 30%);
+            animation: spin 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="mesh-bg"></div>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full px-6 py-8 flex justify-between items-center z-50 mix-blend-difference">
+        <div class="font-sync text-xl font-bold tracking-tight">
+            MM <span class="text-violet-500">MOBILES</span>
+        </div>
+        <a href="index.html" class="text-xs tracking-widest uppercase opacity-60 hover:opacity-100">
+            Back
+        </a>
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="min-h-screen pt-32 pb-20 px-6 flex justify-center">
+
+        <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- LEFT -->
+            <div class="space-y-6">
+                <h2 class="font-sync text-xs tracking-[0.5em] text-violet-400 uppercase">
+                    Order Information
+                </h2>
+
+                <h1 class="text-4xl md:text-5xl font-black leading-tight tracking-tight">
+                    Almost yours.
+                </h1>
+
+                <p class="text-gray-400 max-w-md">
+                    Fill your delivery details below. Once submitted, your order will be sent directly to MM Mobiles
+                    via WhatsApp for confirmation.
+                </p>
+
+                <!-- Preview Placeholder -->
+                <div
+                    class="glass rounded-3xl p-4 mt-8 aspect-[9/19] w-56 border border-white/10 overflow-hidden flex items-center justify-center">
+
+                    <img id="previewImage" class="hidden w-full h-full object-cover rounded-2xl" />
+
+                    <span id="previewText" class="text-xs tracking-widest opacity-50 uppercase">
+                        Design Preview
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- RIGHT FORM -->
+            <form id="orderForm" class="glass rounded-3xl p-8 space-y-6">
+
+                <div>
+                    <label class="text-xs tracking-widest uppercase opacity-60">Full Name</label>
+                    <input required type="text" id="name" placeholder="John Doe"
+                        class="w-full border-b border-white/10 py-3 mt-2" />
+                </div>
+
+                <div>
+                    <label class="text-xs tracking-widest uppercase opacity-60">Mobile Number</label>
+                    <input required type="tel" id="phone" placeholder="+91 98765 43210"
+                        class="w-full border-b border-white/10 py-3 mt-2" />
+                </div>
+
+                <div>
+                    <label class="text-xs tracking-widest uppercase opacity-60">Phone Model</label>
+                    <select id="model" class="w-full border-b border-white/10 py-3 mt-2">
+                        <option>iPhone 15</option>
+                        <option>iPhone 14</option>
+                        <option>Samsung S23</option>
+                        <option>Samsung S24</option>
+                        <option>OnePlus</option>
+                        <option>Others</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs tracking-widest uppercase opacity-60">
+                        Upload Your Design Image
+                    </label>
+
+                    <input type="file" id="designImage" accept="image/*" class="mt-3 block w-full text-sm
+                               file:mr-4 file:py-2 file:px-4
+                               file:rounded-xl file:border-0
+                               file:bg-violet-600/20
+                               file:text-white
+                               hover:file:bg-violet-600/40
+                               cursor-pointer" />
+                </div>
+
+                <div>
+                    <label class="text-xs tracking-widest uppercase opacity-60">Delivery Address</label>
+                    <textarea required id="address" rows="3" placeholder="House no, Street, City, Pincode"
+                        class="w-full border-b border-white/10 py-3 mt-2 resize-none"></textarea>
+                </div>
+
+                <!-- CTA -->
+                <button type="submit" class="cta-glow p-[2px] rounded-2xl w-full">
+                    <div class="bg-black/80 rounded-[14px] py-4 text-center font-bold tracking-widest uppercase">
+                        Send Order on WhatsApp
+                    </div>
+                </button>
+
+            </form>
+
+        </div>
+    </section>
+
+    <script>
+        gsap.from("h1, p, form, .glass", {
+            y: 40,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 1.2,
+            ease: "expo.out"
+        });
+
+        document.getElementById("orderForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const model = document.getElementById("model").value;
+            const address = document.getElementById("address").value;
+
+            const imageFile = document.getElementById("designImage").files[0];
+
+            const message =
+                `*MM Mobiles Custom Case Order*
+----------------------------
+Name: ${name}
+Phone: ${phone}
+Model: ${model}
+Address: ${address}
+
+Design Image Attached Below 👇
+`;
+
+            const whatsappNumber = "91XXXXXXXXXX"; // your number
+            const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            if (imageFile) {
+                const blobUrl = URL.createObjectURL(imageFile);
+                window.open(blobUrl, "_blank");
+
+                setTimeout(() => {
+                    window.open(waUrl, "_blank");
+                }, 500);
+            } else {
+                window.open(waUrl, "_blank");
+            }
+        });
+
+    </script>
+
+    <script>
+        const imageInput = document.getElementById("designImage");
+        const previewImage = document.getElementById("previewImage");
+        const previewText = document.getElementById("previewText");
+
+        imageInput.addEventListener("change", () => {
+            const file = imageInput.files[0];
+
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                previewImage.src = reader.result;
+                previewImage.classList.remove("hidden");
+                previewText.classList.add("hidden");
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+</body>
+
+</html>

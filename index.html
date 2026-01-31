@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>MM Mobiles | Place Order</title>
+    <title>MM Mobiles | Infinite Customization</title>
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +15,7 @@
     <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;500;800&display=swap"
-        rel="stylesheet">
+        rel="stylesheet" />
 
     <style>
         :root {
@@ -26,7 +25,7 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #030303;
+            background-color: #030303;
             color: white;
             overflow-x: hidden;
         }
@@ -45,190 +44,120 @@
             z-index: -1;
         }
 
-        /* Glass card */
-        .glass {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(25px);
-        }
-
-        input,
-        textarea,
-        select {
-            background: transparent;
-            outline: none;
-        }
-
-        input::placeholder,
-        textarea::placeholder {
-            color: #777;
-        }
-
-        /* CTA glow */
+        /* CTA FIXED */
         .cta-glow {
             position: relative;
             overflow: hidden;
+            transition: transform 0.4s ease;
+            box-shadow:
+                0 0 25px rgba(139, 92, 246, 0.45),
+                0 0 80px rgba(236, 72, 153, 0.25);
         }
 
         .cta-glow::before {
             content: '';
             position: absolute;
-            inset: -120%;
-            background: conic-gradient(from 0deg,
+            inset: -60%;
+            background:
+                conic-gradient(from 0deg,
                     transparent,
                     var(--primary),
                     var(--secondary),
                     transparent 30%);
-            animation: spin 4s linear infinite;
+            animation: rotate 4s linear infinite;
             z-index: -1;
         }
 
-        @keyframes spin {
+        @keyframes rotate {
             to {
                 transform: rotate(360deg);
             }
         }
+
+        /* Phone case */
+        .phone-case {
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.5);
+            transition: transform 0.1s ease-out;
+        }
     </style>
 </head>
 
-<body>
+<body class="antialiased">
 
     <div class="mesh-bg"></div>
 
     <!-- NAV -->
-    <nav class="fixed top-0 w-full px-6 py-8 flex justify-between items-center z-50 mix-blend-difference">
-        <div class="font-sync text-xl font-bold">
+    <nav class="fixed top-0 w-full z-50 px-6 py-8 flex justify-between items-center mix-blend-difference">
+        <div class="font-sync text-lg md:text-2xl font-bold tracking-tighter">
             MM <span class="text-violet-500">MOBILES</span>
         </div>
-        <a href="index.html" class="text-xs tracking-widest uppercase opacity-60 hover:opacity-100">
-            Back
-        </a>
+        <div class="h-[1px] w-24 bg-white/20"></div>
     </nav>
 
-    <!-- PAGE -->
-    <section class="min-h-screen pt-32 pb-20 px-6 flex justify-center">
+    <!-- HERO -->
+    <section class="min-h-screen flex items-center justify-center px-6 pt-24">
 
-        <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-14">
+        <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-            <!-- LEFT -->
-            <div class="space-y-6">
+            <!-- PHONE -->
+            <div class="flex justify-center relative order-1 lg:order-2">
 
-                <h2 class="font-sync text-xs tracking-[0.5em] text-violet-400 uppercase">
-                    Checkout
-                </h2>
+                <div class="absolute w-72 h-72 md:w-96 md:h-96 bg-violet-600/20 rounded-full blur-[90px]"></div>
 
-                <h1 class="text-4xl md:text-5xl font-black tracking-tight">
-                    Complete your order.
-                </h1>
+                <div id="phone-ui"
+                    class="phone-case relative w-56 md:w-72 lg:w-80 aspect-[9/19] bg-[#111] rounded-[3rem] p-3 border border-white/10">
 
-                <p class="text-gray-400 max-w-md">
-                    Upload your design, enter delivery details and pay securely using UPI QR.
-                </p>
+                    <div class="w-full h-full rounded-[2.5rem] overflow-hidden relative">
 
-                <!-- Preview -->
-                <div
-                    class="glass rounded-3xl p-4 mt-8 aspect-[9/19] w-56 border border-white/10 overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&q=80&w=900"
+                            class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700"
+                            alt="Phone Case Preview">
 
-                    <img id="previewImage" class="hidden w-full h-full object-cover rounded-2xl" />
+                        <div class="absolute bottom-6 left-0 w-full text-center">
+                            <span
+                                class="bg-black/60 backdrop-blur-md px-4 py-1 rounded-full text-[10px] tracking-widest uppercase border border-white/10">
+                                Limited Edition
+                            </span>
+                        </div>
 
-                    <span id="previewText" class="text-xs tracking-widest opacity-50 uppercase">
-                        Design Preview
-                    </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- FORM -->
-            <div class="space-y-6">
+            <!-- TEXT -->
+            <div class="text-center lg:text-left space-y-6 order-2 lg:order-1">
 
-                <form id="orderForm" class="glass rounded-3xl p-8 space-y-6">
+                <h2 class="text-xs md:text-sm font-sync tracking-[0.5em] text-violet-400 uppercase">
+                    Est. 2026
+                </h2>
 
-                    <div>
-                        <label class="text-xs tracking-widest uppercase opacity-60">
-                            Full Name
-                        </label>
-                        <input id="name" required class="w-full border-b border-white/10 py-3 mt-2"
-                            placeholder="John Doe" />
-                    </div>
+                <h1 class="text-5xl sm:text-7xl xl:text-8xl font-black leading-[0.85] tracking-tighter">
+                    WEAR YOUR <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-pink-500">
+                        STORY.
+                    </span>
+                </h1>
 
-                    <div>
-                        <label class="text-xs tracking-widest uppercase opacity-60">
-                            Mobile Number
-                        </label>
-                        <input id="phone" required class="w-full border-b border-white/10 py-3 mt-2"
-                            placeholder="+91 98765 43210" />
-                    </div>
+                <p class="text-gray-400 text-sm md:text-lg max-w-md mx-auto lg:mx-0 leading-relaxed font-light">
+                    Every pixel tells a tale. High-definition custom printing on aerospace-grade polymer.
+                    Designed by you, protected by MM.
+                </p>
 
-                    <div>
-                        <label class="text-xs tracking-widest uppercase opacity-60">
-                            Phone Model
-                        </label>
-                        <select id="model" class="w-full border-b border-white/10 py-3 mt-2">
-                            <option>iPhone 15</option>
-                            <option>iPhone 14</option>
-                            <option>Samsung S24</option>
-                            <option>Samsung S23</option>
-                            <option>OnePlus</option>
-                            <option>Others</option>
-                        </select>
-                    </div>
+                <!-- CTA -->
+                <div class="pt-8">
+                    <button id="main-cta" onclick="window.location.href='order.html'"
+                        class="cta-glow p-[2px] rounded-2xl inline-block group">
 
-                    <div>
-                        <label class="text-xs tracking-widest uppercase opacity-60">
-                            Upload Design Image
-                        </label>
-                        <input id="designImage" type="file" accept="image/*" class="mt-3 block w-full text-sm
-                            file:mr-4 file:py-2 file:px-4
-                            file:rounded-xl file:border-0
-                            file:bg-violet-600/20
-                            file:text-white
-                            hover:file:bg-violet-600/40
-                            cursor-pointer">
-                    </div>
+                        <div class="relative bg-[#0b0b0b] px-10 py-5 rounded-[14px]
+                                   border border-white/10
+                                   backdrop-blur-xl
+                                   group-hover:bg-transparent
+                                   transition-colors duration-300">
 
-                    <div>
-                        <label class="text-xs tracking-widest uppercase opacity-60">
-                            Delivery Address
-                        </label>
-                        <textarea id="address" rows="3" required
-                            class="w-full border-b border-white/10 py-3 mt-2 resize-none"
-                            placeholder="House, Street, City, Pincode"></textarea>
-                    </div>
+                            <span class="text-base md:text-lg font-bold tracking-[0.25em] uppercase">
+                                Start Creating
+                            </span>
 
-                    <!-- PRICE -->
-                    <div class="glass rounded-2xl p-5 flex justify-between items-center">
-                        <span class="tracking-widest uppercase text-xs opacity-70">
-                            Total
-                        </span>
-                        <span class="text-2xl font-black text-violet-400">
-                            ₹799
-                        </span>
-                    </div>
-
-                    <!-- PAY -->
-                    <button type="submit" class="cta-glow p-[2px] rounded-2xl w-full">
-                        <div class="bg-black/80 py-4 rounded-xl tracking-widest uppercase text-center font-bold">
-                            Pay Using QR
-                        </div>
-                    </button>
-
-                </form>
-
-                <!-- QR SECTION -->
-                <div id="qrSection" class="hidden glass rounded-3xl p-8 text-center space-y-6">
-
-                    <h3 class="font-sync text-xs tracking-[0.4em] uppercase text-violet-400">
-                        Scan & Pay
-                    </h3>
-
-                    <img id="qrImage" class="w-64 mx-auto rounded-2xl border border-white/10">
-
-                    <p class="text-gray-400 text-sm">
-                        Scan with any UPI app and complete payment.
-                    </p>
-
-                    <button id="paidBtn" class="cta-glow p-[2px] rounded-2xl w-full">
-                        <div class="bg-black/80 py-4 rounded-xl tracking-widest uppercase">
-                            I Have Paid
                         </div>
                     </button>
                 </div>
@@ -238,81 +167,69 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
+    <footer class="w-full py-10 px-6 opacity-40">
+        <div
+            class="max-w-7xl mx-auto flex flex-wrap justify-center md:justify-between gap-6 text-[10px] md:text-xs font-sync tracking-widest uppercase">
+            <p>Carbon Neutral Delivery</p>
+            <p>Shatter-Proof Guarantee</p>
+            <p>Infinite Designs</p>
+        </div>
+    </footer>
+
+    <!-- GSAP -->
     <script>
-        // entrance animation
-        gsap.from("h1, p, form, .glass", {
-            y: 40,
-            opacity: 0,
-            stagger: 0.08,
-            duration: 1.1,
-            ease: "expo.out"
+        const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+        tl.from(".font-sync", { y: -20, opacity: 0, duration: 1 })
+            .from("h1", { y: 100, opacity: 0, duration: 1.2 }, "-=0.8")
+            .from("p", { y: 30, opacity: 0, duration: 1 }, "-=1")
+            .from("#main-cta", { scale: 0.6, opacity: 0, duration: 0.8 }, "-=0.7")
+            .from("#phone-ui", { x: 60, rotation: 10, opacity: 0, duration: 1.4 }, "-=1");
+
+        gsap.to("#phone-ui", {
+            y: 20,
+            rotation: 2,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
         });
 
-        // image preview
-        const imgInput = document.getElementById("designImage");
-        const preview = document.getElementById("previewImage");
-        const previewText = document.getElementById("previewText");
+        const phone = document.querySelector("#phone-ui");
 
-        imgInput.addEventListener("change", () => {
-            const file = imgInput.files[0];
-            if (!file) return;
+        if (window.innerWidth > 1024) {
+            document.addEventListener("mousemove", (e) => {
+                const x = (window.innerWidth / 2 - e.pageX) / 30;
+                const y = (window.innerHeight / 2 - e.pageY) / 30;
 
-            const reader = new FileReader();
-            reader.onload = () => {
-                preview.src = reader.result;
-                preview.classList.remove("hidden");
-                previewText.classList.add("hidden");
-            };
-            reader.readAsDataURL(file);
+                gsap.to(phone, {
+                    rotationY: x,
+                    rotationX: -y,
+                    transformPerspective: 1000,
+                    duration: 0.4
+                });
+            });
+        }
+
+        const cta = document.querySelector("#main-cta");
+
+        cta.addEventListener("mousemove", (e) => {
+            const rect = cta.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const move = 18;
+
+            gsap.to(cta, {
+                x: (x / rect.width) * move * 2 - move,
+                y: (y / rect.height) * move * 2 - move,
+                duration: 0.3
+            });
         });
 
-        // UPI QR generation
-        const amount = 799;
-        const upiId = "mmmobiles@upi";     // CHANGE THIS
-        const payee = "MM Mobiles";
-
-        const upiLink =
-            `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&am=${amount}&cu=INR&tn=Custom%20Mobile%20Case`;
-
-        const qrUrl =
-            `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(upiLink)}`;
-
-        document.getElementById("qrImage").src = qrUrl;
-
-        // show QR
-        document.getElementById("orderForm").addEventListener("submit", e => {
-            e.preventDefault();
-            document.getElementById("qrSection").classList.remove("hidden");
-            window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-        });
-
-        // WhatsApp confirmation
-        document.getElementById("paidBtn").addEventListener("click", () => {
-
-            const name = document.getElementById("name").value;
-            const phone = document.getElementById("phone").value;
-            const model = document.getElementById("model").value;
-            const address = document.getElementById("address").value;
-
-            const message =
-                `✅ *MM Mobiles Order*
-
-Name: ${name}
-Phone: ${phone}
-Model: ${model}
-Address: ${address}
-
-Amount Paid: ₹799
-Payment Mode: UPI QR
-
-(Transaction ID will be shared)
-`;
-
-            window.open(
-                "https://wa.me/91XXXXXXXXXX?text=" +
-                encodeURIComponent(message),
-                "_blank"
-            );
+        cta.addEventListener("mouseleave", () => {
+            gsap.to(cta, { x: 0, y: 0, duration: 0.5 });
         });
     </script>
 
